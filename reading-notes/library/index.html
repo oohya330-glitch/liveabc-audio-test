@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eae8e3">
+<title>英文精讀電子書｜閱讀書庫</title>
+<style>
+:root{color-scheme:light;--bg:#eae8e3;--paper:#f7f5f0;--ink:#292a29;--muted:#575b57;--line:#d6d3cc;--chip:#e5e3dc;--focus:#38554a}
+:root[data-theme=dark]{color-scheme:dark;--bg:#24272b;--paper:#30343a;--ink:#eeece7;--muted:#d0d0ca;--line:#555b60;--chip:#41474e;--focus:#b2d1bd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,'Noto Sans TC','Microsoft JhengHei',sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:4px}
+.shell{max-width:1040px;margin:auto;padding:42px 30px 72px}.eyebrow{font-size:14px;letter-spacing:1.3px;font-weight:700;color:var(--muted)}h1{font-size:clamp(30px,4vw,43px);margin:14px 0 13px;line-height:1.3}.intro{font-size:20px;line-height:1.8;color:var(--muted);margin:0;max-width:780px}.header{display:flex;justify-content:space-between;gap:22px;align-items:flex-start;padding-bottom:28px;border-bottom:1px solid var(--line)}.mode{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-height:48px;font-size:17px;font-weight:700;white-space:nowrap;color:var(--ink)}.bar{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:30px 0 20px}.count{font-size:18px;color:var(--muted)}.search{min-width:min(100%,310px);background:var(--paper);border:1px solid var(--line);color:var(--ink);border-radius:11px;padding:13px 16px;font-size:18px;min-height:50px}.list{display:grid;grid-template-columns:1fr;gap:15px}.item{display:block;text-decoration:none;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:25px 29px;transition:border-color .15s,transform .15s}.item:hover{border-color:var(--muted);transform:translateY(-1px)}.topline{display:flex;justify-content:space-between;align-items:center;gap:12px}.index{font-size:14px;font-weight:700;letter-spacing:1.2px;color:var(--muted)}.arrow{font-size:24px;color:var(--muted)}.item h2{font-size:clamp(23px,2.8vw,29px);line-height:1.4;margin:12px 0 6px}.zh{font-size:20px;color:var(--muted)}.tag{font-size:15px;color:var(--muted);margin-top:18px}.empty{font-size:20px;color:var(--muted);padding:30px 0}footer{margin-top:35px;text-align:center;color:var(--muted);font-size:14px;line-height:1.6}@media(max-width:680px){.shell{padding:25px 17px 55px}.header{display:block}.mode{margin-top:22px}.intro{font-size:18px}.bar{margin-top:25px}.search{width:100%}.item{padding:22px 20px}.zh{font-size:19px}}@media(prefers-reduced-motion:reduce){.item{transition:none}.item:hover{transform:none}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="header"><div><div class="eyebrow">ENGLISH READING LIBRARY</div><h1>英文精讀電子書</h1><p class="intro">閱讀書庫 · 選擇一篇文章，開始逐句精讀。每篇均提供中英對照、字詞片語與文法解析，並支援 iPad 大字體閱讀。</p></div><button class="mode" id="theme" type="button" aria-pressed="false">深色模式</button></header>
+<div class="bar"><span class="count" id="count">目前收錄 3 篇</span><input id="search" class="search" type="search" placeholder="搜尋文章標題或主題" aria-label="搜尋文章" autocomplete="off"></div>
+<section class="list" id="list" aria-label="文章目錄">
+<a class="item" data-search="the paradox of choice 選擇的弔詭 心理學 決策" href="../"><div class="topline"><span class="index">READING 01</span><span class="arrow" aria-hidden="true">↗</span></div><h2>The Paradox of Choice</h2><div class="zh">選擇的弔詭</div><div class="tag">心理學 · 選擇與決策</div></a>
+<a class="item" data-search="cognitive bias in decision-making 決策中的認知偏誤 心理學 思考 判斷" href="../cognitive-bias/"><div class="topline"><span class="index">READING 02</span><span class="arrow" aria-hidden="true">↗</span></div><h2>Cognitive Bias in Decision-Making</h2><div class="zh">決策中的認知偏誤</div><div class="tag">心理學 · 思考與判斷</div></a>
+<a class="item" data-search="the commodification of art 藝術的商品化 藝術 文化 商業" href="../commodification-of-art/"><div class="topline"><span class="index">READING 03</span><span class="arrow" aria-hidden="true">↗</span></div><h2>The Commodification of Art</h2><div class="zh">藝術的商品化</div><div class="tag">藝術與文化 · 商業價值</div></a>
+</section><p class="empty" id="empty" hidden>找不到符合的文章，請試試其他關鍵字。</p>
+<footer>ENGLISH READING NOTES · PERSONAL STUDY LIBRARY</footer>
+</main>
+<script>
+const root=document.documentElement,theme=document.getElementById('theme'),search=document.getElementById('search'),items=[...document.querySelectorAll('.item')],count=document.getElementById('count'),empty=document.getElementById('empty');
+let dark=false;try{dark=localStorage.getItem('readingNotesReaderV2')&&JSON.parse(localStorage.getItem('readingNotesReaderV2')).theme==='dark'}catch(e){}try{const saved=localStorage.getItem('readingLibraryTheme');if(saved!==null)dark=saved==='dark'}catch(e){}
+function applyTheme(){root.dataset.theme=dark?'dark':'light';theme.textContent=dark?'淺色模式':'深色模式';theme.setAttribute('aria-pressed',String(dark));try{localStorage.setItem('readingLibraryTheme',dark?'dark':'light')}catch(e){}}
+theme.addEventListener('click',()=>{dark=!dark;applyTheme()});applyTheme();
+search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase();let shown=0;items.forEach(el=>{const visible=el.dataset.search.toLocaleLowerCase().includes(q);el.hidden=!visible;if(visible)shown++});count.textContent=q?`搜尋結果：${shown} 篇`:`目前收錄 ${items.length} 篇`;empty.hidden=shown!==0});
+</script>
+</body></html>
